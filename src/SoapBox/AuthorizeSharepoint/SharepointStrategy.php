@@ -13,8 +13,7 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 */
 	private $rc;
 	private $configKey = 'key';
-	private $soapboxUrl;
-
+	
 	/**
 	 * Initializes the Sharepoint Authentication with our id and secret
 	 *
@@ -30,7 +29,6 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 *	provided key.
 	 */
 	public function __construct($settings = array(), $store = null, $load = null) {
-		$this->soapboxUrl = $settings['soapboxUrl'];
 
 		$config = [
 			$this->configKey => [
@@ -57,8 +55,7 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 * @return User A mixed array repreesnting the authenticated user.
 	 */
 	public function login($parameters = array()) {
-
-		Helpers::redirect($this->soapboxUrl);
+		return $this->getUser($parameters);
 	}
 
 	/**
