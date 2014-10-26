@@ -79,7 +79,6 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 * @return User A mixed array representing the authenticated user.
 	 */
 	public function getUser($parameters = array()) {
-
 		try {
 			$remoteUser = $this->rc->getCurrentUserProfile($this->configKey);
 
