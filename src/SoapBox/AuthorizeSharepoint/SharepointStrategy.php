@@ -13,7 +13,7 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 */
 	private $rc;
 	private $configKey = 'key';
-	
+
 	/**
 	 * Initializes the Sharepoint Authentication with our id and secret
 	 *
@@ -29,11 +29,20 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 *	provided key.
 	 */
 	public function __construct($settings = array(), $store = null, $load = null) {
+		if( !isset($parameters['url']) ||
+			!isset($parameters['path']) ||
+			!isset($parameters['acs']) ||
+			!isset($parameters['client_id']) ||
+			!isset($parameters['secret']) ) {
+			throw new MissingArgumentsException(
+				'Required parameters url, path, acs, client_id, or secret are missing'
+			);
+		}
 
 		$config = [
 			$this->configKey => [
 				'url'       => $settings['url'],
-				'path'      => '/',//'/sites/mySite', 
+				'path'      => '/',//'/sites/mySite',
 				'acs'       => $settings['acs'],
 				'client_id' => $settings['client_id'],
 				'secret'    => $settings['secret'],
@@ -96,7 +105,7 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 *	validate our user.
 	 */
 	public function endpoint($parameters = array()) {
-		$token = $parameters['access_token']; 
+		$token = $parameters['access_token'];
 
 		//get the tokenFromUser
 		$this->rc->tokenFromUser($this->configKey, $token);
