@@ -29,11 +29,11 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 *	provided key.
 	 */
 	public function __construct($settings = array(), $store = null, $load = null) {
-		if( !isset($parameters['url']) ||
-			!isset($parameters['path']) ||
-			!isset($parameters['acs']) ||
-			!isset($parameters['client_id']) ||
-			!isset($parameters['secret']) ) {
+		if( !isset($settings['url']) ||
+			!isset($settings['path']) ||
+			!isset($settings['acs']) ||
+			!isset($settings['client_id']) ||
+			!isset($settings['secret']) ) {
 			throw new MissingArgumentsException(
 				'Required parameters url, path, acs, client_id, or secret are missing'
 			);
