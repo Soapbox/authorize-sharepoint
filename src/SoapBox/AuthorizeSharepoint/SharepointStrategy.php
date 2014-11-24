@@ -91,7 +91,7 @@ class SharepointStrategy extends SingleSignOnStrategy {
 
 			return $user;
 		} catch (\Exception $e) {
-			throw new AuthenticationException();
+			throw new AuthenticationException(null, 0, $e);
 		}
 
 	}
