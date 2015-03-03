@@ -4,8 +4,8 @@ use SoapBox\Authorize\User;
 use SoapBox\Authorize\Exceptions\AuthenticationException;
 use SoapBox\Authorize\Exceptions\MissingArgumentsException;
 use SoapBox\Authorize\Strategies\SingleSignOnStrategy;
-use Altek\SharePoint\SharePointException;
-use Altek\SharePoint\RESTClient;
+use SoapBox\SharePoint\SharePointException;
+use SoapBox\SharePoint\RESTClient;
 
 class SharepointStrategy extends SingleSignOnStrategy {
 
