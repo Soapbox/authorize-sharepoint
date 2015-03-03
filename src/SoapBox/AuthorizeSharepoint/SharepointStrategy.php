@@ -31,7 +31,6 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 */
 	public function __construct($settings = array(), $store = null, $load = null) {
 		if( !isset($settings['url']) ||
-			!isset($settings['path']) ||
 			!isset($settings['acs']) ||
 			!isset($settings['client_id']) ||
 			!isset($settings['secret']) ) {
