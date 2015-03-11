@@ -33,14 +33,16 @@ class SharepointStrategy extends SingleSignOnStrategy {
 		if( !isset($settings['url']) ||
 			!isset($settings['acs']) ||
 			!isset($settings['client_id']) ||
-			!isset($settings['secret']) ) {
+			!isset($settings['secret']) ||
+			!isset($settings['resource_id'])) {
 			throw new MissingArgumentsException(
-				'Required parameters url, path, acs, client_id, or secret are missing'
+				'Required parameters url, path, acs, client_id, secret, resource_id are missing'
 			);
 		}
 
 		$configuration = [
 			'site' => [
+				'resource'  => $settings['resource_id'],
 				'client_id' => $settings['client_id'],
 				'secret'    => $settings['secret'],
 				'acs'       => $settings['acs']

@@ -1,6 +1,10 @@
 # Authorize-Sharepoint
 [Authorize](http://github.com/soapbox/authorize) strategy for SharePoint authentication.
 
+## Where to get a resource id??!
+http://{{site}}.sharepoint.com/_layouts/15/appprincipals.aspx?Scope=Web
+- It's the guid after the @ symbol...
+
 ## Getting Started
 - Install [Authorize](http://github.com/soapbox/authorize) into your application
 to use this Strategy.
