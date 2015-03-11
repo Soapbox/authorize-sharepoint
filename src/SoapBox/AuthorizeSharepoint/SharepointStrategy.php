@@ -80,12 +80,13 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 */
 	public function getUser($parameters = array()) {
 		try {
+			$this->rc->tokenFromUser($this->configKey, $_POST['SPAppToken']);
 			$remoteUser = $this->rc->getCurrentUserProfile($this->configKey);
 
 			$user = new User;
 			$user->id = $remoteUser['account'];
 			$user->email =  $remoteUser['email'];
-			$user->accessToken = $parameters['access_token'];
+			$user->accessToken = 'token';
 			$user->firstname = $remoteUser['name'];
 			$user->lastname = '';//$remoteUser['account'];
 
@@ -104,11 +105,6 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 *	validate our user.
 	 */
 	public function endpoint($parameters = array()) {
-		$token = $parameters['access_token'];
-
-		//get the tokenFromUser
-		$this->rc->tokenFromUser($this->configKey, $token);
-
 		return $this->getUser($parameters);
 	}
 
