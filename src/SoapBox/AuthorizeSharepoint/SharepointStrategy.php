@@ -4,16 +4,16 @@ use SoapBox\Authorize\User;
 use SoapBox\Authorize\Exceptions\AuthenticationException;
 use SoapBox\Authorize\Exceptions\MissingArgumentsException;
 use SoapBox\Authorize\Strategies\SingleSignOnStrategy;
-use WeAreArchitect\SharePoint\SPException;
-use WeAreArchitect\SharePoint\SPList;
-use WeAreArchitect\SharePoint\SPSite;
+use SoapBox\SharePoint\SharePointException;
+use SoapBox\SharePoint\RESTClient;
 
 class SharepointStrategy extends SingleSignOnStrategy {
 
 	/**
 	 * An array of the permissions we require for the application.
 	 */
-	private $site;
+	private $rc;
+	private $configKey = 'key';
 
 	/**
 	 * Initializes the Sharepoint Authentication with our id and secret
@@ -39,21 +39,17 @@ class SharepointStrategy extends SingleSignOnStrategy {
 			);
 		}
 
-		$configuration = [
-			'site' => [
+		$config = [
+			$this->configKey => [
+				'url'       => $settings['url'],
+				'path'      => '/',//'/sites/mySite',
+				'acs'       => $settings['acs'],
 				'client_id' => $settings['client_id'],
 				'secret'    => $settings['secret'],
-				'acs'       => $settings['acs']
-			]
+			],
 		];
 
-		// create a SharePoint Site instance
-		$site = SPSite::create($settings['url'], $configuration);
-
-		// generate an Access Token
-		$site->createSPAccessToken();
-
-		$this->site = $site;
+		$this->rc = new RESTClient($config);
 	}
 
 	/**
@@ -84,14 +80,14 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 */
 	public function getUser($parameters = array()) {
 		try {
-			$remoteUser = SPUser::getCurrent($this->site);
+			$remoteUser = $this->rc->getCurrentUserProfile($this->configKey);
 
 			$user = new User;
 			$user->id = $remoteUser['account'];
 			$user->email =  $remoteUser['email'];
 			$user->accessToken = $parameters['access_token'];
 			$user->firstname = $remoteUser['name'];
-			$user->lastname = '';
+			$user->lastname = '';//$remoteUser['account'];
 
 			return $user;
 		} catch (\Exception $e) {
@@ -108,7 +104,10 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 *	validate our user.
 	 */
 	public function endpoint($parameters = array()) {
-		$token = 'token';
+		$token = $parameters['access_token'];
+
+		//get the tokenFromUser
+		$this->rc->tokenFromUser($this->configKey, $token);
 
 		return $this->getUser($parameters);
 	}
