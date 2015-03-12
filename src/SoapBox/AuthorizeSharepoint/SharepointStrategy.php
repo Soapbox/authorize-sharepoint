@@ -80,7 +80,7 @@ class SharepointStrategy extends SingleSignOnStrategy {
 	 */
 	public function getUser($parameters = array()) {
 		try {
-			$this->rc->tokenFromUser($this->configKey, $_POST['SPAppToken']);
+			$this->rc->tokenFromUser($this->configKey, $parameters['access_token']);
 			$remoteUser = $this->rc->getCurrentUserProfile($this->configKey);
 
 			$user = new User;
