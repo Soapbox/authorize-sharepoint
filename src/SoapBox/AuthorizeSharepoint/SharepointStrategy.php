@@ -83,6 +83,10 @@ class SharepointStrategy extends SingleSignOnStrategy {
 			$this->rc->tokenFromUser($this->configKey, $parameters['access_token']);
 			$remoteUser = $this->rc->getCurrentUserProfile($this->configKey);
 
+			if( preg_match("/st0([a-z0-9]+)@/i", $remoteUser['email']) ) {
+				throw new AuthenticationException('Please sign in with your personal account.');
+			}
+
 			$user = new User;
 			$user->id = $remoteUser['account'];
 			$user->email =  $remoteUser['email'];
