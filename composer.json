@@ -11,8 +11,8 @@
     ],
     "repositories": [
         {
-            "type": "package",
-            "url": "git://github.com/soapbox/sharepoint-client.git"
+            "type": "vcs",
+            "url": "git@github.com:soapbox/sharepoint-client.git"
         },
         {
             "type": "vcs",
