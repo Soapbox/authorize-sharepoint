@@ -12,26 +12,7 @@
     "repositories": [
         {
             "type": "package",
-            "package": {
-                "name": "soapbox/sharepoint-client",
-                "version": "dev-master",
-                "source": {
-                    "url": "git://github.com/soapbox/sharepoint-client.git",
-                    "type": "git",
-                    "reference": "master"
-                },
-                "require": {
-                    "php": ">=5.4.0",
-                    "guzzlehttp/guzzle": "~4.0",
-                    "nixilla/php-jwt": "~0.1",
-                    "nesbot/Carbon": "~1.9"
-                },
-                "autoload": {
-                    "psr-4" : {
-                        "SoapBox\\SharePoint\\": "src/"
-                    }
-                }
-            }
+            "url": "git://github.com/soapbox/sharepoint-client.git"
         },
         {
             "type": "vcs",
@@ -40,7 +21,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "soapbox/authorize": "dev-master",
+        "soapbox/authorize": "0.1.*",
         "illuminate/support": "4.2.*",
         "soapbox/sharepoint-client": "dev-master"
     },
