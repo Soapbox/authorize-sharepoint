@@ -91,8 +91,9 @@ class SharepointStrategy extends SingleSignOnStrategy {
 			$user->id = $remoteUser['account'];
 			$user->email =  $remoteUser['email'];
 			$user->accessToken = 'token';
-			$user->firstname = $remoteUser['name'];
-			$user->lastname = '';//$remoteUser['account'];
+			$name = explode(' ', $remoteUser['name'], 2);
+			$user->firstname = $name[0];
+			$user->lastname = $name[1];
 
 			return $user;
 		} catch (\Exception $e) {
