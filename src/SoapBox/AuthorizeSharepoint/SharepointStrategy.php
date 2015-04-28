@@ -93,7 +93,10 @@ class SharepointStrategy extends SingleSignOnStrategy {
 			$user->accessToken = 'token';
 			$name = explode(' ', $remoteUser['name'], 2);
 			$user->firstname = $name[0];
-			$user->lastname = $name[1];
+
+			if (count($name) > 1) {
+				$user->lastname = $name[1];
+			}
 
 			return $user;
 		} catch (\Exception $e) {
